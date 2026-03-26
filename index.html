@@ -1,760 +1,815 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>La Liga · Sports 803</title>
-  <meta name="description" content="Today's La Liga live events — free streams. Updated automatically every 5 minutes.">
-  <meta property="og:type"        content="website">
-  <meta property="og:image"       content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqM5-9vk9Nzs4UFpZ9HbVanvxkLcbivlwd4o__0pYw38dS2q1B6X5wj1mrfP9QYBEHCBJfIelVJ3O5dvBp634fLZqN-hRSK-Mzr3bheL9OsFTV_dbQbpW4CYQ2pSjC5MN-vS3OoYXCf0HRDvCwBjS4F-bhAIOuiJLa28cdgbmLckzIy3M3HYQV9lXFYdA/s1280/IMG_0120.png">
-  <meta property="og:image:width"  content="1280">
-  <meta property="og:image:height" content="720">
-  <meta property="og:url"         content="">
-  <meta name="twitter:card"        content="summary_large_image">
-  <meta name="twitter:image"       content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqM5-9vk9Nzs4UFpZ9HbVanvxkLcbivlwd4o__0pYw38dS2q1B6X5wj1mrfP9QYBEHCBJfIelVJ3O5dvBp634fLZqN-hRSK-Mzr3bheL9OsFTV_dbQbpW4CYQ2pSjC5MN-vS3OoYXCf0HRDvCwBjS4F-bhAIOuiJLa28cdgbmLckzIy3M3HYQV9lXFYdA/s1280/IMG_0120.png">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="La Liga · Sports 803">
-  <meta property="og:description" content="Today's live La Liga events on Sports 803.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sports 803 · Thumbnail Generator</title>
   <style>
-    :root {
-      --bg: #0a0c10;
-      --surface: #12151c;
-      --card: #181c26;
-      --border: #242836;
-      --accent: #ff6b35;
-      --accent-text: #ffffff;
-      --text: #f0f2f7;
-      --muted: #8892a4;
-      --radius: 10px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-size: 15px;
+      background: #070809;
+      color: #eef0f7;
+      font-family: 'Segoe UI', 'Syne', system-ui, -apple-system, sans-serif;
+      padding: 24px;
       line-height: 1.5;
-      min-height: 100vh;
     }
-    /* ── HEADER ── */
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .header-inner {
-      max-width: 960px;
+
+    .container {
+      max-width: 1400px;
       margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
-      gap: 16px;
     }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-    .logo-badge {
-      background: var(--accent);
-      color: var(--accent-text);
-      font-family: 'Oswald', sans-serif;
-      font-weight: 700;
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      padding: 4px 8px;
-      border-radius: 5px;
-    }
-    .logo-name {
-      font-family: 'Oswald', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text);
-    }
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .header-date { font-size: 12px; color: var(--muted); }
-    .back-link {
-      font-size: 11px;
-      color: var(--muted);
-      text-decoration: none;
-      border: 1px solid var(--border);
-      padding: 4px 11px;
-      border-radius: 20px;
-      transition: all .18s;
-    }
-    .back-link:hover { border-color: var(--accent); color: var(--accent); }
-    #refresh-btn {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 5px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 12px;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.18s;
-    }
-    #refresh-btn:hover { border-color: var(--accent); color: var(--accent); }
-    /* ── HERO BANNER ── */
-    .hero {
-      background: linear-gradient(135deg,#1a0800 0%,#0a0c10 60%);
-      border-bottom: 1px solid #ff6b3544;
-      padding: 28px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255,107,53,.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      position: relative;
-      z-index: 1;
-    }
-    .hero-logo {
-      height: 52px;
-      width: auto;
-      max-width: 90px;
-      object-fit: contain;
-      filter: drop-shadow(0 2px 12px rgba(255,107,53,.5));
-      flex-shrink: 0;
-    }
-    .hero-text h1 {
-      font-family: 'Oswald', sans-serif;
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 5px;
-    }
-    .hero-text p {
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-    .hero-live-pill {
-      margin-left: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-    .hero-count {
-      font-family: 'Oswald', sans-serif;
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--accent);
-      line-height: 1;
-    }
-    .hero-count-label {
-      font-size: 10px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    /* ── MAIN ── */
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 26px 20px 60px;
-    }
-    #status-bar {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 22px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .status-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--muted);
-      flex-shrink: 0;
-    }
-    .status-dot.live  { background: #22c55e; box-shadow: 0 0 6px #22c55e88; }
-    .status-dot.error { background: #ef4444; }
-    /* ── GRID ── */
-    .events-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    @media (min-width: 560px) { .events-grid { grid-template-columns: 1fr 1fr; } }
-    @media (min-width: 860px) { .events-grid { grid-template-columns: 1fr 1fr 1fr; } }
-    /* ── CARD ── */
-    .event-card {
-      display: flex;
-      flex-direction: column;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      text-decoration: none;
-      color: inherit;
-      transition: border-color .18s, background .18s, transform .14s;
-      position: relative;
-      overflow: hidden;
-    }
-    .event-card:hover {
-      border-color: rgba(255,107,53,.45);
-      background: #1c2130;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,.4), 0 0 0 1px rgba(255,107,53,.15);
-    }
-    .event-card::after {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: transparent;
-      transition: background .18s;
-      border-radius: 10px 0 0 10px;
-    }
-    .event-card:hover::after { background: var(--accent); }
-    /* ── MATCH THUMB ── */
-    .match-thumb {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px;
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(160deg, #0d1118 0%, #141926 55%, #0d1118 100%);
-    }
-    .match-thumb::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(255,255,255,.018) 28px,rgba(255,255,255,.018) 29px);
-      pointer-events: none;
-    }
-    .match-thumb::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,107,53,.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .mt-team {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 7px;
-      z-index: 1;
-      min-width: 0;
-    }
-    .mt-logo-wrap { width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; }
-    .mt-logo {
-      max-width: 54px; max-height: 54px;
-      width: auto; height: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 2px 10px rgba(0,0,0,.6));
-    }
-    .mt-logo-placeholder {
-      width: 50px; height: 50px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px;
-    }
-    .mt-name {
-      font-size: 9.5px; color: var(--muted);
-      text-align: center; width: 100%;
-      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-      font-weight: 500; letter-spacing: .02em; padding: 0 4px;
-    }
-    .mt-center {
-      display: flex; flex-direction: column;
-      align-items: center; gap: 5px;
-      flex-shrink: 0; width: 72px; z-index: 1;
-    }
-    .mt-score {
-      font-family: 'Oswald', sans-serif;
-      font-size: 28px; font-weight: 700;
-      color: var(--text); letter-spacing: 4px; line-height: 1;
-    }
-    .mt-vs {
-      font-family: 'Oswald', sans-serif;
-      font-size: 15px; font-weight: 600;
-      color: #3a4258; letter-spacing: 3px; line-height: 1;
-    }
-    .mt-badge {
-      font-size: 8.5px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase;
-      padding: 2px 7px; border-radius: 3px; white-space: nowrap;
-    }
-    .mt-badge.live { background: rgba(34,197,94,.18); color: #22c55e; border: 1px solid rgba(34,197,94,.35); animation: pulse-live 1.6s ease-in-out infinite; }
-    .mt-badge.ft   { background: rgba(148,163,184,.09); color: var(--muted); border: 1px solid var(--border); }
-    .mt-badge.pre  { background: rgba(255,107,53,.1); color: var(--accent); border: 1px solid rgba(255,107,53,.25); }
-    @keyframes pulse-live { 0%,100%{opacity:1} 50%{opacity:.65} }
-    /* ── WATCH BUTTON ── */
-    .watch-btn-wrap {
-      position: absolute;
-      bottom: 10px; left: 50%;
-      transform: translateX(-50%);
-      z-index: 5;
-      opacity: 0;
-      transition: opacity .2s, transform .2s;
-      pointer-events: none;
-    }
-    .event-card:hover .watch-btn-wrap { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(-2px); }
-    @media (hover: none) { .watch-btn-wrap { opacity: 1; pointer-events: auto; } }
-    .watch-btn-static { opacity: 1 !important; pointer-events: auto !important; transform: translateX(-50%) !important; }
-    .watch-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--accent); color: var(--accent-text);
-      font-family: 'Oswald', sans-serif; font-weight: 700;
-      font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-      padding: 7px 16px; border-radius: 20px;
-      text-decoration: none; white-space: nowrap;
-      box-shadow: 0 4px 16px rgba(255,107,53,.35);
-      transition: background .15s, box-shadow .15s, transform .15s;
-    }
-    .watch-btn:hover { box-shadow: 0 6px 20px rgba(255,107,53,.55); transform: scale(1.04); }
-    .play-icon {
-      width: 14px; height: 14px;
-      background: rgba(0,0,0,.25);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 7px; flex-shrink: 0;
-    }
-    /* ── CARD BODY ── */
-    .card-thumb-placeholder {
-      width: 100%; aspect-ratio: 16/9;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 38px; position: relative;
-    }
-    .thumb-loading {
-      width: 100%; aspect-ratio: 16/9;
-      background: linear-gradient(90deg, var(--card) 25%, #1e2333 50%, var(--card) 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.4s infinite;
-      border-bottom: 1px solid var(--border);
-    }
-    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-    .card-body {
-      display: flex; align-items: center; gap: 10px;
-      padding: 11px 13px; flex: 1;
-    }
-    .sport-icon {
-      width: 30px; height: 30px;
-      border-radius: 6px;
-      background: var(--bg); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; flex-shrink: 0;
-    }
-    .event-info { flex: 1; min-width: 0; }
-    .event-title {
-      font-size: 12.5px; font-weight: 500; color: var(--text);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      margin-bottom: 4px;
-    }
-    .event-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .event-label {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: .05em; text-transform: uppercase;
-      padding: 2px 7px; border-radius: 4px;
-      background: rgba(255,107,53,.15); color: var(--accent);
-      border: 1px solid rgba(255,107,53,.3);
-    }
-    .event-date { font-size: 11px; color: var(--muted); }
-    .event-arrow {
-      color: var(--border); font-size: 16px; flex-shrink: 0;
-      transition: color .15s, transform .15s;
-    }
-    .event-card:hover .event-arrow { color: var(--accent); transform: translateX(2px); }
-    .inline-score {
-      font-family: 'Oswald', sans-serif;
-      font-size: 13px; font-weight: 600;
-      color: var(--text);
-      background: var(--bg); border: 1px solid var(--border);
-      border-radius: 5px; padding: 2px 7px;
-      letter-spacing: 2px; flex-shrink: 0;
-    }
-    .inline-score.live { border-color: rgba(34,197,94,.4); color: #22c55e; }
-    /* ── SKELETONS ── */
-    .skeleton {
-      background: linear-gradient(90deg, var(--card) 25%, #1e2333 50%, var(--card) 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.4s infinite;
-      border-radius: var(--radius);
-      height: 200px;
-      border: 1px solid var(--border);
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
       margin-bottom: 8px;
     }
-    #no-results { display: none; text-align: center; padding: 60px 20px; color: var(--muted); }
-    #no-results .icon { font-size: 40px; margin-bottom: 12px; }
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 20px;
-      text-align: center;
-      font-size: 12px;
-      color: var(--muted);
+    h1 span {
+      color: #e63946;
     }
-    footer a { color: var(--accent); text-decoration: none; }
+    .sub {
+      color: #6b738a;
+      margin-bottom: 24px;
+      border-left: 3px solid #e63946;
+      padding-left: 12px;
+    }
+
+    /* Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    /* Cards */
+    .card {
+      background: #0e1015;
+      border: 1px solid #232738;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #8a9bb5;
+      border-bottom: 1px solid #232738;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+
+    /* Form elements */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #9aa0b8;
+      margin-bottom: 6px;
+    }
+    input, select, textarea {
+      width: 100%;
+      background: #141720;
+      border: 1px solid #232738;
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: #eef0f7;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #00d4ff;
+    }
+    input[type="color"] {
+      height: 38px;
+      padding: 4px;
+    }
+    button {
+      background: #1b1f2c;
+      border: 1px solid #2e3347;
+      border-radius: 6px;
+      padding: 8px 16px;
+      color: #eef0f7;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    button:hover {
+      background: #00d4ff;
+      border-color: #00d4ff;
+      color: #070809;
+    }
+    .btn-primary {
+      background: #e63946;
+      border-color: #e63946;
+    }
+    .btn-primary:hover {
+      background: #c1121f;
+    }
+
+    .flex {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .flex button {
+      flex: 1;
+    }
+
+    .preview-area {
+      background: #0e1015;
+      border: 1px solid #232738;
+      border-radius: 12px;
+      overflow: hidden;
+      text-align: center;
+      padding: 12px;
+    }
+    canvas {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      background: #000;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    .url-box {
+      background: #141720;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 0.7rem;
+      word-break: break-all;
+      margin-top: 12px;
+    }
+
+    .api-key-note {
+      font-size: 0.7rem;
+      color: #6b738a;
+      margin-top: 6px;
+    }
+    a {
+      color: #00d4ff;
+      text-decoration: none;
+    }
+    hr {
+      border-color: #232738;
+      margin: 16px 0;
+    }
+    .badge {
+      display: inline-block;
+      background: #1f2a3e;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #8a9bb5;
+    }
   </style>
 </head>
 <body>
+<div class="container">
+  <h1>Sports <span>803</span> · Thumbnail Generator</h1>
+  <div class="sub">Create custom match or race thumbnails for your posts – free, no watermark.</div>
 
-<header>
-  <div class="header-inner">
-    <a class="logo" href="https://sports803livestream.blogspot.com" target="_blank">
-      <span class="logo-badge">S803</span>
-      <span class="logo-name">Sports 803</span>
-    </a>
-    <div class="header-right">
-      <a class="back-link" href="index.html">← All Events</a>
-      <span class="header-date" id="header-date"></span>
-      <button id="refresh-btn" onclick="loadFeed()">↻ Refresh</button>
-    </div>
-  </div>
-</header>
+  <div class="grid">
+    <!-- Left: Controls -->
+    <div>
+      <div class="card">
+        <div class="card-title">Event Type</div>
+        <div class="form-group">
+          <label>Type</label>
+          <select id="type">
+            <option value="match">🏆 Match (two teams)</option>
+            <option value="race">🏎️ Race (single event)</option>
+          </select>
+        </div>
+      </div>
 
-<div class="hero">
-  <div class="hero-inner">
-    <img class="hero-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/LaLiga_2023_Horizontal_Logo.svg/960px-LaLiga_2023_Horizontal_Logo.svg.png" alt="La Liga" onerror="this.style.display='none'">
-    <div class="hero-text">
-      <h1>La Liga</h1>
-      <p>Spanish Primera División</p>
+      <div class="card">
+        <div class="card-title">Details</div>
+        <div id="match-fields">
+          <div class="form-group">
+            <label>Home Team / Event Name</label>
+            <input type="text" id="home" placeholder="e.g. Manchester City" value="Manchester City">
+          </div>
+          <div class="form-group">
+            <label>Away Team</label>
+            <input type="text" id="away" placeholder="e.g. Arsenal" value="Arsenal">
+          </div>
+        </div>
+        <div id="race-fields" style="display: none;">
+          <div class="form-group">
+            <label>Race Name</label>
+            <input type="text" id="race-name" placeholder="e.g. Monaco Grand Prix" value="Monaco Grand Prix">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>League / Series</label>
+          <input type="text" id="league" placeholder="Premier League / Formula 1" value="Premier League">
+        </div>
+        <div class="form-group">
+          <label>Date & Time (optional)</label>
+          <input type="text" id="datetime" placeholder="Sun 23 Mar · 15:00 GMT">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Logos & Visuals</div>
+        <div id="match-logos">
+          <div class="form-group">
+            <label>Home Logo URL</label>
+            <input type="text" id="home-logo" placeholder="https://... or leave blank to auto‑fetch">
+          </div>
+          <div class="form-group">
+            <label>Away Logo URL</label>
+            <input type="text" id="away-logo" placeholder="https://... or leave blank to auto‑fetch">
+          </div>
+        </div>
+        <div id="race-logos" style="display: none;">
+          <div class="form-group">
+            <label>Event Banner / Circuit Image (optional)</label>
+            <input type="text" id="banner" placeholder="https://...">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Background Color 1 (start)</label>
+          <input type="color" id="bg1" value="#0d1b2a">
+        </div>
+        <div class="form-group">
+          <label>Background Color 2 (end)</label>
+          <input type="color" id="bg2" value="#1a0020">
+        </div>
+        <div class="form-group">
+          <label>Aspect Ratio</label>
+          <select id="aspect">
+            <option value="16:9">Blog / YouTube (16:9)</option>
+            <option value="1:1">Social Square (1:1)</option>
+            <option value="9:16">Stories / Reels (9:16)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Quality (width)</label>
+          <select id="quality">
+            <option value="800">Standard (800px width)</option>
+            <option value="1200">HD (1200px width)</option>
+            <option value="1600">4K (1600px width)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔑 imgbb API Key</div>
+        <div class="form-group">
+          <input type="text" id="imgbb-key" placeholder="Paste your imgbb API key here">
+          <div class="api-key-note">Get a free key at <a href="https://api.imgbb.com" target="_blank">api.imgbb.com</a> – saved in your browser.</div>
+        </div>
+        <button id="save-key" style="width: auto;">💾 Save Key</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Actions</div>
+        <div class="flex">
+          <button id="generate" class="btn-primary">🎨 Generate Thumbnail</button>
+          <button id="upload">☁️ Upload to imgbb</button>
+          <button id="download">⬇️ Download JPEG</button>
+          <button id="copy-url">📋 Copy URL</button>
+          <button id="copy-html">📝 Copy HTML</button>
+        </div>
+        <div class="url-box" id="thumb-url-display">No thumbnail generated yet.</div>
+      </div>
     </div>
-    <div class="hero-live-pill">
-      <div class="hero-count" id="hero-count">—</div>
-      <div class="hero-count-label">Events Today</div>
+
+    <!-- Right: Preview -->
+    <div>
+      <div class="card preview-area">
+        <div class="card-title">Preview</div>
+        <canvas id="thumb-canvas" width="800" height="450" style="max-width:100%; height:auto; background:#111; border-radius:8px;"></canvas>
+        <div class="flex" style="margin-top: 12px;">
+          <button id="refresh-preview" style="flex:1;">↻ Refresh Preview</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<main>
-  <div id="status-bar">
-    <span class="status-dot" id="status-dot"></span>
-    <span id="status-text">Fetching La Liga events…</span>
-  </div>
-  <div class="events-grid" id="grid-container">
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-  </div>
-  <div id="no-results">
-    <div class="icon">🇪🇸</div>
-    No La Liga events today. Check back soon!
-  </div>
-</main>
-
-<footer>
-  Live feed from
-  <a href="https://sports803livestream.blogspot.com" target="_blank">sports803livestream.blogspot.com</a>
-  &nbsp;·&nbsp; La Liga only · auto-refreshes every 5 min
-</footer>
-
 <script>
-const BLOG_URL   = 'https://sports803livestream.blogspot.com';
-const MAX_POSTS  = 50;
-const EXPIRE_MS  = 24 * 60 * 60 * 1000;
-const SPORT_LABELS = ["la liga", "laliga"];
-
-const ESPN_MAP = {
-  'champions league':'soccer/uefa.champions','ucl':'soccer/uefa.champions',
-  'premier league':'soccer/eng.1','epl':'soccer/eng.1',
-  'fa cup':'soccer/eng.fa',
-  'la liga':'soccer/esp.1','laliga':'soccer/esp.1',
-  'serie a':'soccer/ita.1',
-  'bundesliga':'soccer/ger.1',
-  'ligue 1':'soccer/fra.1','french league':'soccer/fra.1',
-  'mls':'soccer/usa.1',
-  'nba':'basketball/nba','nfl':'football/nfl',
-  'f1':'racing/f1','formula':'racing/f1',
-};
-
-const espnCache = {};
-const logoCache = {};
-let allEvents = [];
-let renderedEvents = [];
-
-function matchesLabel(label) {
-  if (!label) return false;
-  const k = label.toLowerCase();
-  return SPORT_LABELS.some(s => k.includes(s) || s.includes(k));
-}
-
-function timeAgo(iso) {
-  const diff = Date.now() - new Date(iso).getTime();
-  if (diff < 60000) return 'Just posted';
-  if (diff < 3600000) return Math.floor(diff/60000)+'m ago';
-  if (diff < 86400000) return Math.floor(diff/3600000)+'h ago';
-  return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric'});
-}
-
-function loadFeed() {
-  setStatus('','Fetching La Liga events…');
-  const old = document.getElementById('_bfeed');
-  if (old) old.remove();
-  const s = document.createElement('script');
-  s.id = '_bfeed';
-  s.src = `${BLOG_URL}/feeds/posts/default?alt=json-in-script&max-results=${MAX_POSTS}&orderby=published&callback=_onFeed&t=${Date.now()}`;
-  s.onerror = () => { setStatus('error','Could not load feed.'); clearSkeletons(); };
-  document.head.appendChild(s);
-  setTimeout(() => { if (!allEvents.length) { setStatus('error','Feed timed out.'); clearSkeletons(); } }, 12000);
-}
-
-window._onFeed = function(json) {
-  const entries = json.feed.entry || [];
-  const now = Date.now();
-  allEvents = entries.map(e => {
-    const link  = (e.link||[]).find(l => l.rel==='alternate');
-    const label = (e.category||[])[0]?.term || null;
-    return {
-      title: e.title?.$t || 'Untitled',
-      url:   link?.href || '#',
-      date:  e.published?.$t || null,
-      label,
-    };
-  }).filter(e => {
-    if (!e.date) return false;
-    if (!matchesLabel(e.label)) return false;
-    const age = now - new Date(e.date).getTime();
-    return age >= 0 && age <= EXPIRE_MS;
-  });
-
-  const shown = allEvents.length;
-  document.getElementById('hero-count').textContent = shown;
-  setStatus(
-    shown ? 'live' : '',
-    shown
-      ? `${shown} event${shown!==1?'s':''} today · auto-refreshes every 5 min`
-      : `No La Liga posts in the last 24 hours`
-  );
-  render();
-};
-
-function render() {
-  const grid = document.getElementById('grid-container');
-  const noResults = document.getElementById('no-results');
-  clearSkeletons();
-  if (!allEvents.length) {
-    grid.innerHTML = '';
-    renderedEvents = [];
-    noResults.style.display = 'block';
-    return;
+  // -------------------------------------------------------------
+  // Helper drawing functions (adapted from v5.5)
+  // -------------------------------------------------------------
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
   }
-  noResults.style.display = 'none';
-  renderedEvents = [...allEvents];
-  grid.innerHTML = allEvents.map((e, idx) => `
-    <a class="event-card" href="${e.url}" target="_blank" rel="noopener" data-idx="${idx}">
-      <div class="thumb-loading" data-thumb-idx="${idx}"></div>
-      <div class="card-body">
-        <div class="sport-icon">🇪🇸</div>
-        <div class="event-info">
-          <div class="event-title" title="${e.title.replace(/"/g,'&quot;')}">${e.title}</div>
-          <div class="event-meta">
-            ${e.label ? `<span class="event-label">${e.label}</span>` : ''}
-            <span class="event-date">${timeAgo(e.date)}</span>
-          </div>
-        </div>
-        <span class="event-arrow">›</span>
-      </div>
-    </a>`).join('');
-  enrichCards();
-}
 
-async function enrichCards() {
-  const labelsPresent = [...new Set(renderedEvents.map(e=>e.label).filter(Boolean))];
-  await Promise.all(labelsPresent.map(label => fetchESPNScoreboard(label)));
-  const thumbEls = document.querySelectorAll('[data-thumb-idx]');
-  for (const el of thumbEls) {
-    const idx = parseInt(el.dataset.thumbIdx);
-    const event = renderedEvents[idx];
-    if (!event) continue;
-    const teams = parseMatchTeams(event.title);
-    if (!teams) {
-      el.outerHTML = `
-        <div class="card-thumb-placeholder" style="position:relative;">
-          🇪🇸
-          <div class="watch-btn-wrap watch-btn-static">
-            <a class="watch-btn" href="${event.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-              <span class="play-icon">▶</span> Watch Live Stream
-            </a>
-          </div>
-        </div>`;
-      continue;
-    }
-    const espnEvents = getESPNCached(event.label);
-    const scoreData  = findScore(teams.home, teams.away, espnEvents);
-    let homeLogo = scoreData?.homeLogo || null;
-    let awayLogo = scoreData?.awayLogo || null;
-    const [hl, al] = await Promise.all([
-      homeLogo ? Promise.resolve(homeLogo) : fetchTeamLogo(teams.home),
-      awayLogo ? Promise.resolve(awayLogo) : fetchTeamLogo(teams.away),
-    ]);
-    homeLogo = hl; awayLogo = al;
-    let badgeHtml = '';
-    if (scoreData) {
-      const cls = scoreData.state==='in'?'live':scoreData.state==='post'?'ft':'pre';
-      const lbl = scoreData.state==='in'?`🔴 ${scoreData.status||'LIVE'}`:scoreData.state==='post'?'FT':scoreData.status||'UPCOMING';
-      badgeHtml = `<span class="mt-badge ${cls}">${lbl}</span>`;
-    } else {
-      badgeHtml = `<span class="mt-badge pre">📺 WATCH</span>`;
-    }
-    const showScore = scoreData && (scoreData.state==='in'||scoreData.state==='post');
-    const centerHtml = showScore
-      ? `<div class="mt-score">${scoreData.homeScore}<span style="color:#2a3045;font-size:20px;margin:0 2px">–</span>${scoreData.awayScore}</div>`
-      : `<div class="mt-vs">VS</div>`;
-    const logoHtml = (logo, name) => logo
-      ? `<img class="mt-logo" src="${logo}" alt="${name}" loading="lazy" onerror="this.outerHTML='<div class=mt-logo-placeholder>🇪🇸</div>'">`
-      : `<div class="mt-logo-placeholder">🇪🇸</div>`;
-    const placeholder = document.querySelector(`[data-thumb-idx="${idx}"]`);
-    if (placeholder) {
-      const tmp = document.createElement('div');
-      tmp.innerHTML = `
-        <div class="match-thumb" style="position:relative;">
-          <div class="mt-team"><div class="mt-logo-wrap">${logoHtml(homeLogo,teams.home)}</div><div class="mt-name">${teams.home}</div></div>
-          <div class="mt-center">${centerHtml}${badgeHtml}</div>
-          <div class="mt-team"><div class="mt-logo-wrap">${logoHtml(awayLogo,teams.away)}</div><div class="mt-name">${teams.away}</div></div>
-          <div class="watch-btn-wrap">
-            <a class="watch-btn" href="${event.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-              <span class="play-icon">▶</span> Watch Live Stream
-            </a>
-          </div>
-        </div>`;
-      placeholder.replaceWith(tmp.firstElementChild);
-    }
-    if (scoreData && showScore) {
-      const card = document.querySelector(`.event-card[data-idx="${idx}"]`);
-      if (card) {
-        const arrow = card.querySelector('.event-arrow');
-        if (arrow && !card.querySelector('.inline-score')) {
-          const chip = document.createElement('span');
-          chip.className = 'inline-score' + (scoreData.state==='in'?' live':'');
-          chip.textContent = `${scoreData.homeScore}–${scoreData.awayScore}`;
-          arrow.before(chip);
-        }
+  function drawS803Badge(ctx, W, H, scale) {
+    const pad = Math.round(12 * scale);
+    const bw = Math.round(130 * scale);
+    const bh = Math.round(32 * scale);
+    const x = W - bw - pad;
+    const y = pad;
+    ctx.save();
+    ctx.globalAlpha = 0.95;
+    ctx.fillStyle = 'rgba(0,0,0,.85)';
+    roundRect(ctx, x, y, bw, bh, 5);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#e63946';
+    ctx.beginPath();
+    ctx.arc(x + 11 * scale, y + bh / 2, 4 * scale, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = `900 ${Math.round(13 * scale)}px "Barlow Condensed",sans-serif`;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('SPORTS', x + 19 * scale, y + bh / 2);
+    ctx.fillStyle = '#39ff14';
+    ctx.fillText(' 803', x + 19 * scale + ctx.measureText('SPORTS').width, y + bh / 2);
+    ctx.restore();
+  }
+
+  function wrapText(ctx, text, x, y, maxWidth, fontSize) {
+    if (!text) return;
+    const words = text.split(' ');
+    let line = '';
+    const lines = [];
+    for (let w of words) {
+      const testLine = line ? line + ' ' + w : w;
+      if (ctx.measureText(testLine).width > maxWidth && line) {
+        lines.push(line);
+        line = w;
+      } else {
+        line = testLine;
       }
     }
+    lines.push(line);
+    lines.slice(0, 2).forEach((l, i) => ctx.fillText(l, x, y + i * (fontSize + 4)));
   }
-}
 
-async function fetchESPNScoreboard(label) {
-  const path = getESPNPath(label);
-  if (!path || espnCache[path]!==undefined) return;
-  try {
-    const r = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${path}/scoreboard`,{signal:AbortSignal.timeout(6000)});
-    espnCache[path] = r.ok ? (await r.json()).events||[] : [];
-  } catch { espnCache[path]=[]; }
-}
-
-function getESPNPath(label) {
-  if (!label) return null;
-  const k = label.toLowerCase();
-  for (const [key,path] of Object.entries(ESPN_MAP)) { if (k.includes(key)) return path; }
-  return null;
-}
-
-function getESPNCached(label) {
-  const p = getESPNPath(label);
-  return p ? (espnCache[p]||[]) : [];
-}
-
-function parseMatchTeams(title) {
-  const m = title.match(/^(?:watch\s+)?(.+?)\s+(?:vs?\.?|[-–])\s+(.+?)(?:\s+(?:live|stream|full|hd|free).*)?\s*$/i);
-  if (!m) return null;
-  const home = m[1].trim().replace(/^watch\s+/i,'');
-  const away = m[2].trim();
-  if (home.length<2||away.length<2) return null;
-  return {home,away};
-}
-
-function normTeam(s) {
-  return s.toLowerCase()
-    .replace(/\b(fc|sc|ac|cf|afc|bfc|bsc|rc|cd|ud|sd|vfb|vfl|sv|bv|rb|rcd|tsv)\b/gi,'')
-    .replace(/[^a-z0-9]/g,' ').replace(/\s+/g,' ').trim();
-}
-
-function fuzzyTeamMatch(a,b) {
-  const na=normTeam(a),nb=normTeam(b);
-  if (na===nb||na.includes(nb)||nb.includes(na)) return true;
-  const wa=na.split(' ')[0],wb=nb.split(' ')[0];
-  return wa.length>3&&wa===wb;
-}
-
-function findScore(homeTeam,awayTeam,espnEvents) {
-  for (const ev of espnEvents) {
-    const comps=ev.competitions?.[0]?.competitors||[];
-    if (comps.length<2) continue;
-    const homeComp=comps.find(c=>c.homeAway==='home')||comps[0];
-    const awayComp=comps.find(c=>c.homeAway==='away')||comps[1];
-    const hn=homeComp.team?.displayName||'';
-    const an=awayComp.team?.displayName||'';
-    if (!(fuzzyTeamMatch(hn,homeTeam)||fuzzyTeamMatch(an,homeTeam))) continue;
-    if (!(fuzzyTeamMatch(hn,awayTeam)||fuzzyTeamMatch(an,awayTeam))) continue;
-    const hA=fuzzyTeamMatch(hn,homeTeam)?homeComp:awayComp;
-    const aA=fuzzyTeamMatch(an,awayTeam)?awayComp:homeComp;
-    const status=ev.status?.type;
-    const state=status?.state||'pre';
-    return {
-      homeScore:hA.score??'-',awayScore:aA.score??'-',
-      status:status?.shortDetail||(state==='in'?'LIVE':state==='post'?'FT':''),
-      state,homeLogo:hA.team?.logo||null,awayLogo:aA.team?.logo||null,
-    };
+  async function loadImageCORS(url, fallbackName) {
+    if (!url) return null;
+    const tryLoad = (src) => new Promise(resolve => {
+      if (!src) return resolve(null);
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      const t = setTimeout(() => resolve(null), 6000);
+      img.onload = () => { clearTimeout(t); resolve(img); };
+      img.onerror = () => { clearTimeout(t); resolve(null); };
+      img.src = src;
+    });
+    let img = await tryLoad(url);
+    if (!img && url.startsWith('http')) {
+      const proxy = `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=300&h=300&fit=contain&n=-1`;
+      img = await tryLoad(proxy);
+    }
+    if (!img && fallbackName) {
+      const tsdbUrl = await fetchLogoFromTSDB(fallbackName);
+      if (tsdbUrl) {
+        img = await tryLoad(tsdbUrl);
+        if (!img) img = await tryLoad(`https://wsrv.nl/?url=${encodeURIComponent(tsdbUrl)}&w=300&h=300&fit=contain&n=-1`);
+      }
+    }
+    return img;
   }
-  return null;
-}
 
-async function fetchTeamLogo(teamName) {
-  const key=teamName.toLowerCase().trim();
-  if (logoCache[key]!==undefined) return logoCache[key];
-  logoCache[key]=null;
-  try {
-    const r=await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=${encodeURIComponent(teamName)}`,{signal:AbortSignal.timeout(5000)});
-    const d=await r.json();
-    logoCache[key]=d.teams?.[0]?.strTeamBadge||d.teams?.[0]?.strTeamLogo||null;
-  } catch { logoCache[key]=null; }
-  return logoCache[key];
-}
+  async function fetchLogoFromTSDB(teamName) {
+    if (!teamName) return null;
+    try {
+      const res = await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=${encodeURIComponent(teamName)}`);
+      const data = await res.json();
+      return data.teams?.[0]?.strTeamBadge || data.teams?.[0]?.strBadge || null;
+    } catch(e) { return null; }
+  }
 
-function setStatus(state,text) {
-  document.getElementById('status-dot').className='status-dot'+(state?' '+state:'');
-  document.getElementById('status-text').textContent=text;
-}
+  async function drawMatchThumb(canvas, opts) {
+    const { home, away, hLogo, aLogo, league, datetime, bg1, bg2 } = opts;
+    const W = canvas.width, H = canvas.height, cx = W/2, cy = H/2, scale = W / 800;
+    const ctx = canvas.getContext('2d');
+    const [hImg, aImg] = await Promise.all([
+      loadImageCORS(hLogo, home),
+      loadImageCORS(aLogo, away)
+    ]);
 
-function clearSkeletons() {
-  const c=document.getElementById('grid-container');
-  if (c.querySelector('.skeleton')) c.innerHTML='';
-}
+    ctx.clearRect(0,0,W,H);
 
-document.getElementById('header-date').textContent =
-  new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    ctx.fillStyle = bg1;
+    ctx.fillRect(0, 0, cx + 8*scale, H);
+    ctx.fillStyle = bg2;
+    ctx.fillRect(cx - 8*scale, 0, W, H);
 
-loadFeed();
-setInterval(loadFeed, 5*60*1000);
+    const blend = ctx.createLinearGradient(cx - 60*scale, 0, cx + 60*scale, 0);
+    blend.addColorStop(0, bg1);
+    blend.addColorStop(0.5, 'rgba(0,0,0,0.6)');
+    blend.addColorStop(1, bg2);
+    ctx.fillStyle = blend;
+    ctx.fillRect(cx - 60*scale, 0, 120*scale, H);
+
+    const vig = ctx.createRadialGradient(cx, cy, H*0.05, cx, cy, H*0.9);
+    vig.addColorStop(0, 'rgba(0,0,0,0)');
+    vig.addColorStop(1, 'rgba(0,0,0,0.6)');
+    ctx.fillStyle = vig;
+    ctx.fillRect(0,0,W,H);
+
+    if (league) {
+      const fs = Math.round(13*scale);
+      ctx.font = `700 ${fs}px "Barlow Condensed",sans-serif`;
+      const w = ctx.measureText(league).width + 24*scale;
+      const h = fs + 14*scale;
+      ctx.save();
+      ctx.globalAlpha = 0.9;
+      ctx.fillStyle = '#080c14';
+      roundRect(ctx, cx - w/2, Math.round(16*scale), w, h, h/2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = '#e2e8f0';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(league, cx, 16*scale + h/2);
+      ctx.restore();
+    }
+
+    const r = Math.round(105*scale);
+    const hx = Math.round(W*0.255);
+    const ax = Math.round(W*0.745);
+    const cyLogo = Math.round(H*0.42);
+
+    function drawLogo(img, cx, cy, r) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, r+3*scale, 0, Math.PI*2);
+      ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+      ctx.lineWidth = 2*scale;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(255,255,255,0.05)';
+      ctx.fill();
+      ctx.clip();
+      if (img) {
+        ctx.shadowColor = 'rgba(255,255,255,0.15)';
+        ctx.shadowBlur = 10*scale;
+        ctx.drawImage(img, cx - r*0.85, cy - r*0.85, r*1.7, r*1.7);
+      } else {
+        ctx.fillStyle = 'rgba(255,255,255,0.08)';
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+    drawLogo(hImg, hx, cyLogo, r);
+    drawLogo(aImg, ax, cyLogo, r);
+
+    const vsR = Math.round(28*scale);
+    ctx.save();
+    ctx.shadowColor = '#e63946';
+    ctx.shadowBlur = 24*scale;
+    ctx.fillStyle = '#e63946';
+    ctx.beginPath();
+    ctx.arc(cx, cyLogo, vsR, 0, Math.PI*2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = '#fff';
+    ctx.font = `900 ${Math.round(15*scale)}px "Barlow Condensed",sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('VS', cx, cyLogo);
+    ctx.restore();
+
+    const nameY = cyLogo + r + Math.round(18*scale);
+    const nameFs = Math.round(21*scale);
+    ctx.font = `800 ${nameFs}px "Barlow Condensed",sans-serif`;
+    ctx.shadowColor = 'rgba(0,0,0,0.95)';
+    ctx.shadowBlur = 12*scale;
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    wrapText(ctx, home, hx, nameY, W*0.38, nameFs);
+    wrapText(ctx, away, ax, nameY, W*0.38, nameFs);
+    ctx.shadowBlur = 0;
+
+    if (datetime) {
+      const dtFs = Math.round(13*scale);
+      ctx.font = `600 ${dtFs}px "Barlow Condensed",sans-serif`;
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.shadowColor = 'rgba(0,0,0,0.9)';
+      ctx.shadowBlur = 8;
+      ctx.fillText('🕐  ' + datetime, cx, H - Math.round(16*scale));
+      ctx.shadowBlur = 0;
+    }
+
+    ctx.save();
+    ctx.globalAlpha = 0.92;
+    const stripe = ctx.createLinearGradient(0, H - Math.round(36*scale), W, H);
+    stripe.addColorStop(0, '#e63946');
+    stripe.addColorStop(1, '#c1121f');
+    ctx.fillStyle = stripe;
+    ctx.fillRect(0, H - Math.round(36*scale), W, Math.round(36*scale));
+    ctx.restore();
+    ctx.font = `800 ${Math.round(13*scale)}px "Barlow Condensed",sans-serif`;
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('▶  WATCH FREE ON SPORTS 803', cx, H - Math.round(18*scale));
+
+    drawS803Badge(ctx, W, H, scale);
+  }
+
+  async function drawRaceThumb(canvas, opts) {
+    const { name, league, datetime, venue, bg1, bg2, bannerUrl } = opts;
+    const W = canvas.width, H = canvas.height, cx = W/2, scale = W/800;
+    const ctx = canvas.getContext('2d');
+    let bannerImg = null;
+    if (bannerUrl) bannerImg = await loadImageCORS(bannerUrl, name);
+
+    ctx.clearRect(0,0,W,H);
+    const grad = ctx.createLinearGradient(0,0,W,H);
+    grad.addColorStop(0, bg1);
+    grad.addColorStop(1, bg2);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,W,H);
+
+    if (bannerImg) {
+      const iW = W*0.62, iH = H, iX = W - iW;
+      ctx.save();
+      ctx.globalAlpha = 0.45;
+      const ir = Math.max(iW / bannerImg.width, iH / bannerImg.height);
+      ctx.drawImage(bannerImg, iX + (iW - bannerImg.width*ir)/2, (iH - bannerImg.height*ir)/2, bannerImg.width*ir, bannerImg.height*ir);
+      ctx.restore();
+      const fade = ctx.createLinearGradient(iX,0,W,0);
+      fade.addColorStop(0, bg1);
+      fade.addColorStop(0.5, 'rgba(10,14,26,0)');
+      fade.addColorStop(1, 'rgba(10,14,26,0.3)');
+      ctx.fillStyle = fade;
+      ctx.fillRect(0,0,W,H);
+    }
+
+    // Left accent bar
+    const bar = ctx.createLinearGradient(0,0,0,H);
+    bar.addColorStop(0, '#e63946');
+    bar.addColorStop(1, '#f4a261');
+    ctx.fillStyle = bar;
+    ctx.fillRect(Math.round(28*scale), Math.round(H*0.1), Math.round(5*scale), Math.round(H*0.8));
+
+    // League pill
+    const lgFs = Math.round(13*scale);
+    ctx.font = `700 ${lgFs}px "Barlow Condensed",sans-serif`;
+    const lgText = league || 'Motorsport';
+    const lgW = ctx.measureText(lgText).width + 22*scale;
+    const lgH = lgFs + 14*scale;
+    const lgX = Math.round(42*scale), lgY = Math.round(20*scale);
+    ctx.save();
+    ctx.globalAlpha = 0.92;
+    ctx.fillStyle = '#e63946';
+    roundRect(ctx, lgX, lgY, lgW, lgH, 4);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(lgText, lgX + 10*scale, lgY + lgH/2);
+    ctx.restore();
+
+    // Event name
+    const titleFs = Math.round(32*scale);
+    ctx.font = `900 ${titleFs}px "Barlow Condensed",sans-serif`;
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.shadowColor = 'rgba(0,0,0,0.95)';
+    ctx.shadowBlur = 18;
+    const words = (name || 'Race Event').split(' ');
+    let lines = [], line = '';
+    const maxTW = W*0.52;
+    for (let w of words) {
+      const test = line ? line + ' ' + w : w;
+      if (ctx.measureText(test).width > maxTW && line) {
+        lines.push(line);
+        line = w;
+      } else line = test;
+    }
+    lines.push(line);
+    const startY = Math.round(H*0.28);
+    lines.slice(0,3).forEach((l,i) => ctx.fillText(l, Math.round(42*scale), startY + i*(titleFs+5*scale)));
+    ctx.shadowBlur = 0;
+
+    if (venue) {
+      ctx.font = `400 ${Math.round(14*scale)}px "Barlow",sans-serif`;
+      ctx.fillStyle = 'rgba(255,255,255,0.55)';
+      ctx.textBaseline = 'top';
+      ctx.fillText('📍 ' + venue, Math.round(42*scale), startY + lines.length*(titleFs+5*scale)+8*scale);
+    }
+    if (datetime) {
+      ctx.font = `700 ${Math.round(16*scale)}px "Barlow Condensed",sans-serif`;
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.textBaseline = 'top';
+      ctx.shadowColor = 'rgba(0,0,0,0.9)';
+      ctx.shadowBlur = 8;
+      ctx.fillText('🕐  ' + datetime, Math.round(42*scale), Math.round(H*0.7));
+      ctx.shadowBlur = 0;
+    }
+
+    const bH = Math.round(44*scale);
+    ctx.save();
+    ctx.globalAlpha = 0.94;
+    const botG = ctx.createLinearGradient(0, H-bH, W, H);
+    botG.addColorStop(0, '#e63946');
+    botG.addColorStop(1, '#c1121f');
+    ctx.fillStyle = botG;
+    ctx.fillRect(0, H-bH, W, bH);
+    ctx.restore();
+    ctx.font = `800 ${Math.round(15*scale)}px "Barlow Condensed",sans-serif`;
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('▶  WATCH FREE ON SPORTS 803', cx, H - bH/2);
+
+    drawS803Badge(ctx, W, H, scale);
+  }
+
+  // -------------------------------------------------------------
+  // Main generation function
+  // -------------------------------------------------------------
+  async function generateThumbnail() {
+    const type = document.getElementById('type').value;
+    const quality = parseInt(document.getElementById('quality').value);
+    const aspect = document.getElementById('aspect').value;
+    const canvas = document.getElementById('thumb-canvas');
+    const ratios = { '16:9': 0.5625, '1:1': 1, '9:16': 1.778 };
+    canvas.width = aspect === '9:16' ? Math.round(quality * 0.5625) : quality;
+    canvas.height = Math.round(canvas.width * ratios[aspect]);
+
+    const league = document.getElementById('league').value;
+    const datetime = document.getElementById('datetime').value;
+    const bg1 = document.getElementById('bg1').value;
+    const bg2 = document.getElementById('bg2').value;
+
+    if (type === 'match') {
+      const home = document.getElementById('home').value;
+      const away = document.getElementById('away').value;
+      let hLogo = document.getElementById('home-logo').value.trim();
+      let aLogo = document.getElementById('away-logo').value.trim();
+
+      // Auto‑fetch if fields empty
+      if (!hLogo && home) {
+        const fetched = await fetchLogoFromTSDB(home);
+        if (fetched) {
+          hLogo = fetched;
+          document.getElementById('home-logo').value = hLogo;
+        }
+      }
+      if (!aLogo && away) {
+        const fetched = await fetchLogoFromTSDB(away);
+        if (fetched) {
+          aLogo = fetched;
+          document.getElementById('away-logo').value = aLogo;
+        }
+      }
+
+      await drawMatchThumb(canvas, { home, away, hLogo, aLogo, league, datetime, bg1, bg2 });
+    } else {
+      const name = document.getElementById('race-name').value;
+      const banner = document.getElementById('banner').value.trim();
+      await drawRaceThumb(canvas, { name, league, datetime, venue: '', bg1, bg2, bannerUrl: banner });
+    }
+  }
+
+  // -------------------------------------------------------------
+  // Imgbb upload
+  // -------------------------------------------------------------
+  let savedKey = localStorage.getItem('s803_imgbb_key') || '';
+  if (savedKey) document.getElementById('imgbb-key').value = savedKey;
+
+  document.getElementById('save-key').onclick = () => {
+    const key = document.getElementById('imgbb-key').value.trim();
+    if (key) {
+      localStorage.setItem('s803_imgbb_key', key);
+      alert('API key saved.');
+    } else {
+      alert('Please enter a key.');
+    }
+  };
+
+  async function uploadToImgbb() {
+    const canvas = document.getElementById('thumb-canvas');
+    const key = document.getElementById('imgbb-key').value.trim();
+    if (!key) {
+      alert('Please enter and save your imgbb API key first.');
+      return;
+    }
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+    const formData = new FormData();
+    formData.append('key', key);
+    formData.append('image', dataUrl.split(',')[1]);
+    try {
+      const res = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: formData });
+      const json = await res.json();
+      if (json.success) {
+        const url = json.data.url;
+        document.getElementById('thumb-url-display').innerHTML = `<strong>URL:</strong> <a href="${url}" target="_blank">${url}</a>`;
+        navigator.clipboard.writeText(url);
+        alert('Uploaded and URL copied to clipboard!');
+      } else {
+        alert('Upload failed: ' + (json.error?.message || 'Unknown error'));
+      }
+    } catch(e) {
+      alert('Network error: ' + e.message);
+    }
+  }
+
+  function downloadThumb() {
+    const canvas = document.getElementById('thumb-canvas');
+    const link = document.createElement('a');
+    link.download = 'sports803-thumb.jpg';
+    link.href = canvas.toDataURL('image/jpeg', 0.9);
+    link.click();
+  }
+
+  function copyUrl() {
+    const urlDiv = document.getElementById('thumb-url-display');
+    const urlMatch = urlDiv.innerText.match(/https?:\/\/[^\s]+/);
+    if (urlMatch) {
+      navigator.clipboard.writeText(urlMatch[0]);
+      alert('URL copied to clipboard!');
+    } else {
+      alert('No URL available. Upload first.');
+    }
+  }
+
+  function copyHtml() {
+    const canvas = document.getElementById('thumb-canvas');
+    const url = canvas.toDataURL('image/jpeg', 0.9);
+    const title = document.getElementById('type').value === 'match' 
+      ? `${document.getElementById('home').value} vs ${document.getElementById('away').value}`
+      : document.getElementById('race-name').value;
+    const html = `<div><img src="${url}" alt="${title}" style="max-width:100%;height:auto;border-radius:8px;"></div>`;
+    navigator.clipboard.writeText(html);
+    alert('HTML code for image copied to clipboard (base64 inline).');
+  }
+
+  // -------------------------------------------------------------
+  // Event listeners
+  // -------------------------------------------------------------
+  document.getElementById('generate').onclick = () => generateThumbnail();
+  document.getElementById('upload').onclick = () => uploadToImgbb();
+  document.getElementById('download').onclick = () => downloadThumb();
+  document.getElementById('copy-url').onclick = () => copyUrl();
+  document.getElementById('copy-html').onclick = () => copyHtml();
+  document.getElementById('refresh-preview').onclick = () => generateThumbnail();
+
+  // Toggle fields based on type
+  function toggleFields() {
+    const type = document.getElementById('type').value;
+    document.getElementById('match-fields').style.display = type === 'match' ? 'block' : 'none';
+    document.getElementById('race-fields').style.display = type === 'race' ? 'block' : 'none';
+    document.getElementById('match-logos').style.display = type === 'match' ? 'block' : 'none';
+    document.getElementById('race-logos').style.display = type === 'race' ? 'block' : 'none';
+    generateThumbnail();
+  }
+  document.getElementById('type').addEventListener('change', toggleFields);
+  document.getElementById('quality').addEventListener('change', generateThumbnail);
+  document.getElementById('aspect').addEventListener('change', generateThumbnail);
+  document.getElementById('home').addEventListener('input', generateThumbnail);
+  document.getElementById('away').addEventListener('input', generateThumbnail);
+  document.getElementById('home-logo').addEventListener('input', generateThumbnail);
+  document.getElementById('away-logo').addEventListener('input', generateThumbnail);
+  document.getElementById('race-name').addEventListener('input', generateThumbnail);
+  document.getElementById('banner').addEventListener('input', generateThumbnail);
+  document.getElementById('league').addEventListener('input', generateThumbnail);
+  document.getElementById('datetime').addEventListener('input', generateThumbnail);
+  document.getElementById('bg1').addEventListener('input', generateThumbnail);
+  document.getElementById('bg2').addEventListener('input', generateThumbnail);
+
+  // Initial generation
+  toggleFields();
+  generateThumbnail();
 </script>
-
 </body>
 </html>
