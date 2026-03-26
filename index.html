@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -40,29 +39,26 @@
     a { color: #00d4ff; text-decoration: none; }
     hr { border-color: #232738; margin: 16px 0; }
 
-```
-/* Logo row: URL input + clear button */
-.logo-row { display: flex; gap: 6px; align-items: center; }
-.logo-row input { flex: 1; }
-.logo-row .clear-btn { flex: 0 0 auto; padding: 8px 10px; font-size: 0.7rem; background: #1a0a0c; border-color: #3d1a1e; color: #e63946; }
-.logo-row .clear-btn:hover { background: #e63946; color: #fff; border-color: #e63946; }
-
-/* Auto-fetch badge on input */
-.auto-badge { display: inline-block; background: #0d2e1a; color: #39c974; border: 1px solid #1a5c37; font-size: 0.6rem; border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; }
-
-/* Status indicator */
-#gen-status { font-size: 0.72rem; margin-top: 10px; min-height: 18px; color: #6b738a; text-align: center; }
-#gen-status.loading { color: #00d4ff; }
-#gen-status.done { color: #39c974; }
-#gen-status.error { color: #e63946; }
-```
-
+    .logo-row { display: flex; gap: 6px; align-items: center; }
+    .logo-row input { flex: 1; }
+    .logo-row .clear-btn { flex: 0 0 auto; padding: 8px 10px; font-size: 0.7rem; background: #1a0a0c; border-color: #3d1a1e; color: #e63946; }
+    .logo-row .clear-btn:hover { background: #e63946; color: #fff; border-color: #e63946; }
+    .auto-badge { display: inline-block; background: #0d2e1a; color: #39c974; border: 1px solid #1a5c37; font-size: 0.6rem; border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; }
+    .status { font-size: 0.72rem; margin-top: 10px; min-height: 18px; color: #6b738a; text-align: center; }
+    .status.loading { color: #00d4ff; }
+    .status.done { color: #39c974; }
+    .status.error { color: #e63946; }
+    .inline-group { display: flex; gap: 12px; align-items: flex-end; }
+    .inline-group .form-group { flex: 1; margin-bottom: 0; }
+    .match-string-row { display: flex; gap: 8px; align-items: flex-end; }
+    .match-string-row .form-group { flex: 1; }
+    .match-string-row button { margin-bottom: 0; white-space: nowrap; }
   </style>
 </head>
 <body>
 <div class="container">
   <h1>Sports <span>803</span> · Thumbnail Generator</h1>
-  <div class="sub">Create custom match or race thumbnails for your posts – free, no watermark.</div>
+  <div class="sub">Create custom match, race, or highlights thumbnails – free, no watermark.</div>
 
   <div class="grid">
     <!-- Left: Controls -->
@@ -78,153 +74,160 @@
         </div>
       </div>
 
-```
-  <div class="card">
-    <div class="card-title">Details</div>
-    <div id="match-fields">
-      <div class="form-group">
-        <label>Home Team</label>
-        <input type="text" id="home" placeholder="e.g. Manchester City" value="Manchester City">
-      </div>
-      <div class="form-group">
-        <label>Away Team</label>
-        <input type="text" id="away" placeholder="e.g. Arsenal" value="Arsenal">
-      </div>
-    </div>
-    <div id="race-fields" style="display: none;">
-      <div class="form-group">
-        <label>Race Name</label>
-        <input type="text" id="race-name" placeholder="e.g. Monaco Grand Prix" value="Monaco Grand Prix">
-      </div>
-    </div>
-    <div class="form-group">
-      <label>League / Series</label>
-      <input type="text" id="league" placeholder="Premier League / Formula 1" value="Premier League">
-    </div>
-    <div class="form-group">
-      <label>Date & Time (optional)</label>
-      <input type="text" id="datetime" placeholder="Sun 23 Mar · 15:00 GMT">
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Logos & Visuals</div>
-    <div id="match-logos">
-      <div class="form-group">
-        <label>
-          Home Logo URL
-          <span id="home-auto-badge" class="auto-badge" style="display:none;">auto-fetched</span>
-        </label>
-        <div class="logo-row">
-          <input type="text" id="home-logo" placeholder="Leave blank to auto-fetch from TheSportsDB">
-          <button class="clear-btn" id="clear-home-logo" title="Clear and re-fetch">✕</button>
+      <div class="card">
+        <div class="card-title">Thumbnail Style</div>
+        <div class="form-group">
+          <label>Mode</label>
+          <select id="mode">
+            <option value="preview">Preview (VS badge)</option>
+            <option value="highlights">Highlights (score)</option>
+          </select>
+        </div>
+        <div id="score-group" class="form-group" style="display: none;">
+          <label>Final Score (e.g., 2-1, 101-98)</label>
+          <input type="text" id="score" placeholder="2-1">
         </div>
       </div>
-      <div class="form-group">
-        <label>
-          Away Logo URL
-          <span id="away-auto-badge" class="auto-badge" style="display:none;">auto-fetched</span>
-        </label>
-        <div class="logo-row">
-          <input type="text" id="away-logo" placeholder="Leave blank to auto-fetch from TheSportsDB">
-          <button class="clear-btn" id="clear-away-logo" title="Clear and re-fetch">✕</button>
+
+      <div class="card">
+        <div class="card-title">Quick Match String</div>
+        <div class="match-string-row">
+          <div class="form-group" style="flex:1">
+            <input type="text" id="match-string" placeholder="e.g. Italy vs Northern Ireland or Italy x Northern Ireland">
+          </div>
+          <button id="parse-match-btn">↻ Parse</button>
+        </div>
+        <div class="api-key-note">Parses "Team A vs Team B" or "Team A x Team B" and fills home/away. Triggers logo fetch.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Details</div>
+        <div id="match-fields">
+          <div class="form-group">
+            <label>Home Team</label>
+            <input type="text" id="home" placeholder="e.g. Manchester City" value="Manchester City">
+          </div>
+          <div class="form-group">
+            <label>Away Team</label>
+            <input type="text" id="away" placeholder="e.g. Arsenal" value="Arsenal">
+          </div>
+        </div>
+        <div id="race-fields" style="display: none;">
+          <div class="form-group">
+            <label>Race Name</label>
+            <input type="text" id="race-name" placeholder="e.g. Monaco Grand Prix" value="Monaco Grand Prix">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>League / Series</label>
+          <input type="text" id="league" placeholder="Premier League / Formula 1" value="Premier League">
+        </div>
+        <div class="form-group">
+          <label>Date & Time (optional)</label>
+          <input type="text" id="datetime" placeholder="Sun 23 Mar · 15:00 GMT">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Logos & Visuals</div>
+        <div id="match-logos">
+          <div class="form-group">
+            <label>Home Logo URL <span id="home-auto-badge" class="auto-badge" style="display:none;">auto-fetched</span></label>
+            <div class="logo-row">
+              <input type="text" id="home-logo" placeholder="Leave blank to auto-fetch from TheSportsDB">
+              <button class="clear-btn" id="clear-home-logo" title="Clear and re-fetch">✕</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Away Logo URL <span id="away-auto-badge" class="auto-badge" style="display:none;">auto-fetched</span></label>
+            <div class="logo-row">
+              <input type="text" id="away-logo" placeholder="Leave blank to auto-fetch from TheSportsDB">
+              <button class="clear-btn" id="clear-away-logo" title="Clear and re-fetch">✕</button>
+            </div>
+          </div>
+        </div>
+        <div id="race-logos" style="display: none;">
+          <div class="form-group">
+            <label>Event Banner / Circuit Image (optional)</label>
+            <input type="text" id="banner" placeholder="https://...">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Background Color 1 (start)</label>
+          <input type="color" id="bg1" value="#0d1b2a">
+        </div>
+        <div class="form-group">
+          <label>Background Color 2 (end)</label>
+          <input type="color" id="bg2" value="#1a0020">
+        </div>
+        <div class="form-group">
+          <label>Aspect Ratio</label>
+          <select id="aspect">
+            <option value="16:9">Blog / YouTube (16:9)</option>
+            <option value="1:1">Social Square (1:1)</option>
+            <option value="9:16">Stories / Reels (9:16)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Quality (width)</label>
+          <select id="quality">
+            <option value="800">Standard (800px)</option>
+            <option value="1200">HD (1200px)</option>
+            <option value="1600">4K (1600px)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔑 imgbb API Key</div>
+        <div class="form-group">
+          <input type="text" id="imgbb-key" placeholder="Paste your imgbb API key here">
+          <div class="api-key-note">Get a free key at <a href="https://api.imgbb.com" target="_blank">api.imgbb.com</a> – saved in your browser.</div>
+        </div>
+        <button id="save-key" style="width:auto;">💾 Save Key</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Actions</div>
+        <div class="flex">
+          <button id="generate" class="btn-primary">🎨 Generate</button>
+          <button id="upload">☁️ Upload to imgbb</button>
+          <button id="download">⬇️ Download JPEG</button>
+          <button id="copy-url">📋 Copy URL</button>
+          <button id="copy-html">📝 Copy HTML</button>
+        </div>
+        <div class="url-box" id="thumb-url-display">No thumbnail generated yet.</div>
+      </div>
+    </div>
+
+    <!-- Right: Preview -->
+    <div>
+      <div class="card preview-area">
+        <div class="card-title">Preview</div>
+        <canvas id="thumb-canvas" width="800" height="450"></canvas>
+        <div id="gen-status" class="status">Ready.</div>
+        <div class="flex" style="margin-top: 8px;">
+          <button id="refresh-preview" style="flex:1;">↻ Refresh Preview</button>
         </div>
       </div>
     </div>
-    <div id="race-logos" style="display: none;">
-      <div class="form-group">
-        <label>Event Banner / Circuit Image (optional)</label>
-        <input type="text" id="banner" placeholder="https://...">
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Background Color 1 (start)</label>
-      <input type="color" id="bg1" value="#0d1b2a">
-    </div>
-    <div class="form-group">
-      <label>Background Color 2 (end)</label>
-      <input type="color" id="bg2" value="#1a0020">
-    </div>
-    <div class="form-group">
-      <label>Aspect Ratio</label>
-      <select id="aspect">
-        <option value="16:9">Blog / YouTube (16:9)</option>
-        <option value="1:1">Social Square (1:1)</option>
-        <option value="9:16">Stories / Reels (9:16)</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Quality (width)</label>
-      <select id="quality">
-        <option value="800">Standard (800px)</option>
-        <option value="1200">HD (1200px)</option>
-        <option value="1600">4K (1600px)</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">🔑 imgbb API Key</div>
-    <div class="form-group">
-      <input type="text" id="imgbb-key" placeholder="Paste your imgbb API key here">
-      <div class="api-key-note">Get a free key at <a href="https://api.imgbb.com" target="_blank">api.imgbb.com</a> – saved in your browser.</div>
-    </div>
-    <button id="save-key" style="width:auto;">💾 Save Key</button>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Actions</div>
-    <div class="flex">
-      <button id="generate" class="btn-primary">🎨 Generate</button>
-      <button id="upload">☁️ Upload to imgbb</button>
-      <button id="download">⬇️ Download JPEG</button>
-      <button id="copy-url">📋 Copy URL</button>
-      <button id="copy-html">📝 Copy HTML</button>
-    </div>
-    <div class="url-box" id="thumb-url-display">No thumbnail generated yet.</div>
-  </div>
-</div>
-
-<!-- Right: Preview -->
-<div>
-  <div class="card preview-area">
-    <div class="card-title">Preview</div>
-    <canvas id="thumb-canvas" width="800" height="450"></canvas>
-    <div id="gen-status">Ready.</div>
-    <div class="flex" style="margin-top: 8px;">
-      <button id="refresh-preview" style="flex:1;">↻ Refresh Preview</button>
-    </div>
-  </div>
-</div>
-```
-
   </div>
 </div>
 
 <script>
 // ─────────────────────────────────────────────
-// State tracking for auto-fetched logos
+// State tracking
 // ─────────────────────────────────────────────
 const autoFetched = { home: false, away: false };
-
-// In-memory logo cache: teamName (lowercase) → url
 const logoCache = new Map();
-
-// Generation counter to cancel stale renders
 let genCounter = 0;
 
-// ─────────────────────────────────────────────
-// Status helper
-// ─────────────────────────────────────────────
 function setStatus(msg, cls = '') {
   const el = document.getElementById('gen-status');
   el.textContent = msg;
-  el.className = cls;
+  el.className = 'status ' + cls;
 }
 
-// ─────────────────────────────────────────────
-// Debounce
-// ─────────────────────────────────────────────
 function debounce(fn, ms) {
   let t;
   return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
@@ -303,10 +306,8 @@ function loadImg(src) {
 
 async function loadImageCORS(url) {
   if (!url) return null;
-  // Try direct first
   let img = await loadImg(url);
   if (img) return img;
-  // Fallback: wsrv.nl proxy (handles CORS + caches)
   const proxy = `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=300&h=300&fit=contain&n=-1`;
   return await loadImg(proxy);
 }
@@ -319,14 +320,11 @@ async function fetchLogoFromTSDB(teamName) {
     const res = await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=${encodeURIComponent(teamName)}`);
     const data = await res.json();
     const url = data.teams?.[0]?.strTeamBadge || data.teams?.[0]?.strBadge || null;
-    logoCache.set(key, url);   // cache even null so we don't re-fetch failures
+    logoCache.set(key, url);
     return url;
   } catch { return null; }
 }
 
-// ─────────────────────────────────────────────
-// Mark / unmark an auto-fetched logo input
-// ─────────────────────────────────────────────
 function markAutoFetched(side, url) {
   autoFetched[side] = true;
   document.getElementById(`${side}-logo`).value = url;
@@ -342,10 +340,10 @@ function clearAutoFetched(side) {
 }
 
 // ─────────────────────────────────────────────
-// Canvas draw functions
+// Drawing functions (with highlights support)
 // ─────────────────────────────────────────────
 async function drawMatchThumb(canvas, opts, myGenId) {
-  const { home, away, hLogoUrl, aLogoUrl, league, datetime, bg1, bg2 } = opts;
+  const { home, away, hLogoUrl, aLogoUrl, league, datetime, bg1, bg2, mode, score } = opts;
   const W = canvas.width, H = canvas.height, cx = W / 2, cy = H / 2, scale = W / 800;
   const ctx = canvas.getContext('2d');
 
@@ -353,13 +351,11 @@ async function drawMatchThumb(canvas, opts, myGenId) {
     loadImageCORS(hLogoUrl),
     loadImageCORS(aLogoUrl)
   ]);
-
-  // Abort if a newer generation started while we were waiting
   if (myGenId !== genCounter) return;
 
   ctx.clearRect(0, 0, W, H);
 
-  // Split background
+  // Background split
   ctx.fillStyle = bg1; ctx.fillRect(0, 0, cx + 8 * scale, H);
   ctx.fillStyle = bg2; ctx.fillRect(cx - 8 * scale, 0, W, H);
   const blend = ctx.createLinearGradient(cx - 60 * scale, 0, cx + 60 * scale, 0);
@@ -401,15 +397,22 @@ async function drawMatchThumb(canvas, opts, myGenId) {
   drawLogo(hImg, hx, cyLogo, r);
   drawLogo(aImg, ax, cyLogo, r);
 
-  // VS badge
-  const vsR = Math.round(28 * scale);
+  // Central badge: either VS or score
+  const badgeR = Math.round(28 * scale);
   ctx.save();
   ctx.shadowColor = '#e63946'; ctx.shadowBlur = 24 * scale;
-  ctx.fillStyle = '#e63946'; ctx.beginPath(); ctx.arc(cx, cyLogo, vsR, 0, Math.PI * 2); ctx.fill();
-  ctx.shadowBlur = 0; ctx.fillStyle = '#fff';
+  ctx.fillStyle = '#e63946'; ctx.beginPath(); ctx.arc(cx, cyLogo, badgeR, 0, Math.PI * 2); ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = '#fff';
   ctx.font = `900 ${Math.round(15 * scale)}px "Barlow Condensed",sans-serif`;
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText('VS', cx, cyLogo); ctx.restore();
+  if (mode === 'highlights' && score && score.trim()) {
+    // Display score
+    ctx.fillText(score.trim(), cx, cyLogo);
+  } else {
+    ctx.fillText('VS', cx, cyLogo);
+  }
+  ctx.restore();
 
   // Team names
   const nameY = cyLogo + r + Math.round(18 * scale);
@@ -421,7 +424,6 @@ async function drawMatchThumb(canvas, opts, myGenId) {
   wrapText(ctx, away, ax, nameY, W * 0.38, nameFs);
   ctx.shadowBlur = 0;
 
-  // Datetime
   if (datetime) {
     const dtFs = Math.round(13 * scale);
     ctx.font = `600 ${dtFs}px "Barlow Condensed",sans-serif`;
@@ -466,10 +468,12 @@ async function drawRaceThumb(canvas, opts, myGenId) {
     ctx.fillStyle = fade; ctx.fillRect(0, 0, W, H);
   }
 
+  // Left accent
   const bar = ctx.createLinearGradient(0, 0, 0, H);
   bar.addColorStop(0, '#e63946'); bar.addColorStop(1, '#f4a261');
   ctx.fillStyle = bar; ctx.fillRect(Math.round(28 * scale), Math.round(H * 0.1), Math.round(5 * scale), Math.round(H * 0.8));
 
+  // League pill
   const lgFs = Math.round(13 * scale);
   ctx.font = `700 ${lgFs}px "Barlow Condensed",sans-serif`;
   const lgText = league || 'Motorsport';
@@ -482,6 +486,7 @@ async function drawRaceThumb(canvas, opts, myGenId) {
   ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
   ctx.fillText(lgText, lgX + 10 * scale, lgY + lgH / 2); ctx.restore();
 
+  // Race name
   const titleFs = Math.round(32 * scale);
   ctx.font = `900 ${titleFs}px "Barlow Condensed",sans-serif`;
   ctx.fillStyle = '#fff'; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
@@ -521,50 +526,48 @@ async function drawRaceThumb(canvas, opts, myGenId) {
 // Main generate function
 // ─────────────────────────────────────────────
 async function generateThumbnail() {
-  const myId = ++genCounter;   // claim this generation slot
-
-  const type    = document.getElementById('type').value;
+  const myId = ++genCounter;
+  const type = document.getElementById('type').value;
+  const mode = document.getElementById('mode').value;
   const quality = parseInt(document.getElementById('quality').value);
-  const aspect  = document.getElementById('aspect').value;
-  const canvas  = document.getElementById('thumb-canvas');
-  const ratios  = { '16:9': 0.5625, '1:1': 1, '9:16': 1.778 };
-  canvas.width  = aspect === '9:16' ? Math.round(quality * 0.5625) : quality;
+  const aspect = document.getElementById('aspect').value;
+  const canvas = document.getElementById('thumb-canvas');
+  const ratios = { '16:9': 0.5625, '1:1': 1, '9:16': 1.778 };
+  canvas.width = aspect === '9:16' ? Math.round(quality * 0.5625) : quality;
   canvas.height = Math.round(canvas.width * ratios[aspect]);
 
-  const league   = document.getElementById('league').value;
+  const league = document.getElementById('league').value;
   const datetime = document.getElementById('datetime').value;
-  const bg1      = document.getElementById('bg1').value;
-  const bg2      = document.getElementById('bg2').value;
+  const bg1 = document.getElementById('bg1').value;
+  const bg2 = document.getElementById('bg2').value;
+  const score = document.getElementById('score').value;
 
   setStatus('Generating…', 'loading');
 
   try {
     if (type === 'match') {
-      const home = document.getElementById('home').value.trim();
-      const away = document.getElementById('away').value.trim();
+      let home = document.getElementById('home').value.trim();
+      let away = document.getElementById('away').value.trim();
       let hLogoUrl = document.getElementById('home-logo').value.trim();
       let aLogoUrl = document.getElementById('away-logo').value.trim();
 
-      // Auto-fetch home logo if field is empty
       if (!hLogoUrl && home) {
         const fetched = await fetchLogoFromTSDB(home);
-        if (myId !== genCounter) return;   // aborted
+        if (myId !== genCounter) return;
         if (fetched) { hLogoUrl = fetched; markAutoFetched('home', hLogoUrl); }
       }
-      // Auto-fetch away logo if field is empty
       if (!aLogoUrl && away) {
         const fetched = await fetchLogoFromTSDB(away);
         if (myId !== genCounter) return;
         if (fetched) { aLogoUrl = fetched; markAutoFetched('away', aLogoUrl); }
       }
 
-      await drawMatchThumb(canvas, { home, away, hLogoUrl, aLogoUrl, league, datetime, bg1, bg2 }, myId);
+      await drawMatchThumb(canvas, { home, away, hLogoUrl, aLogoUrl, league, datetime, bg1, bg2, mode, score }, myId);
     } else {
-      const name   = document.getElementById('race-name').value;
+      const name = document.getElementById('race-name').value;
       const banner = document.getElementById('banner').value.trim();
       await drawRaceThumb(canvas, { name, league, datetime, bg1, bg2, bannerUrl: banner }, myId);
     }
-
     if (myId !== genCounter) return;
     setStatus('✓ Done', 'done');
   } catch (e) {
@@ -574,11 +577,34 @@ async function generateThumbnail() {
 }
 
 // ─────────────────────────────────────────────
+// Parse match string
+// ─────────────────────────────────────────────
+function parseMatchString() {
+  const str = document.getElementById('match-string').value.trim();
+  if (!str) return;
+  // Try to split by " vs " or " x " (case‑insensitive)
+  let parts = str.split(/\s+vs\s+|\s+x\s+/i);
+  if (parts.length !== 2) {
+    alert('Could not parse. Use format like "Italy vs Northern Ireland" or "Italy x Northern Ireland".');
+    return;
+  }
+  const home = parts[0].trim();
+  const away = parts[1].trim();
+  if (home && away) {
+    document.getElementById('home').value = home;
+    document.getElementById('away').value = away;
+    // Clear any existing manual logos to trigger auto‑fetch
+    clearAutoFetched('home');
+    clearAutoFetched('away');
+    generateThumbnail();
+  }
+}
+
+// ─────────────────────────────────────────────
 // Clear buttons
 // ─────────────────────────────────────────────
 document.getElementById('clear-home-logo').onclick = () => {
   clearAutoFetched('home');
-  // Also bust cache for current team so TSDB is re-queried
   const key = document.getElementById('home').value.trim().toLowerCase();
   logoCache.delete(key);
   generateThumbnail();
@@ -590,18 +616,23 @@ document.getElementById('clear-away-logo').onclick = () => {
   generateThumbnail();
 };
 
-// ─────────────────────────────────────────────
-// When team name changes: clear auto-fetched logo for that side
-// ─────────────────────────────────────────────
-document.getElementById('home').addEventListener('input', () => {
-  if (autoFetched.home) clearAutoFetched('home');
-});
-document.getElementById('away').addEventListener('input', () => {
-  if (autoFetched.away) clearAutoFetched('away');
-});
+// Team name changes: clear auto‑badge
+document.getElementById('home').addEventListener('input', () => { if (autoFetched.home) clearAutoFetched('home'); });
+document.getElementById('away').addEventListener('input', () => { if (autoFetched.away) clearAutoFetched('away'); });
 
 // ─────────────────────────────────────────────
-// imgbb upload
+// Mode toggle: show/hide score field
+// ─────────────────────────────────────────────
+function toggleMode() {
+  const mode = document.getElementById('mode').value;
+  const scoreGroup = document.getElementById('score-group');
+  scoreGroup.style.display = mode === 'highlights' ? 'block' : 'none';
+  generateThumbnail();
+}
+document.getElementById('mode').addEventListener('change', toggleMode);
+
+// ─────────────────────────────────────────────
+// imgbb
 // ─────────────────────────────────────────────
 let savedKey = localStorage.getItem('s803_imgbb_key') || '';
 if (savedKey) document.getElementById('imgbb-key').value = savedKey;
@@ -609,18 +640,18 @@ if (savedKey) document.getElementById('imgbb-key').value = savedKey;
 document.getElementById('save-key').onclick = () => {
   const k = document.getElementById('imgbb-key').value.trim();
   if (k) { localStorage.setItem('s803_imgbb_key', k); alert('API key saved.'); }
-  else    { alert('Please enter a key.'); }
+  else alert('Please enter a key.');
 };
 
 async function uploadToImgbb() {
   const canvas = document.getElementById('thumb-canvas');
-  const key    = document.getElementById('imgbb-key').value.trim();
+  const key = document.getElementById('imgbb-key').value.trim();
   if (!key) { alert('Please enter and save your imgbb API key first.'); return; }
   const formData = new FormData();
   formData.append('key', key);
   formData.append('image', canvas.toDataURL('image/jpeg', 0.85).split(',')[1]);
   try {
-    const res  = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: formData });
+    const res = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: formData });
     const json = await res.json();
     if (json.success) {
       const url = json.data.url;
@@ -635,20 +666,20 @@ async function uploadToImgbb() {
 
 function downloadThumb() {
   const canvas = document.getElementById('thumb-canvas');
-  const link   = document.createElement('a');
+  const link = document.createElement('a');
   link.download = 'sports803-thumb.jpg';
-  link.href     = canvas.toDataURL('image/jpeg', 0.9);
+  link.href = canvas.toDataURL('image/jpeg', 0.9);
   link.click();
 }
 function copyUrl() {
-  const txt  = document.getElementById('thumb-url-display').innerText;
-  const m    = txt.match(/https?:\/\/[^\s]+/);
+  const txt = document.getElementById('thumb-url-display').innerText;
+  const m = txt.match(/https?:\/\/[^\s]+/);
   if (m) { navigator.clipboard.writeText(m[0]); alert('URL copied!'); }
-  else   { alert('No URL available. Upload first.'); }
+  else alert('No URL available. Upload first.');
 }
 function copyHtml() {
   const canvas = document.getElementById('thumb-canvas');
-  const title  = document.getElementById('type').value === 'match'
+  const title = document.getElementById('type').value === 'match'
     ? `${document.getElementById('home').value} vs ${document.getElementById('away').value}`
     : document.getElementById('race-name').value;
   const html = `<img src="${canvas.toDataURL('image/jpeg', 0.9)}" alt="${title}" style="max-width:100%;height:auto;border-radius:8px;">`;
@@ -661,56 +692,44 @@ function copyHtml() {
 // ─────────────────────────────────────────────
 const debouncedGen = debounce(generateThumbnail, 350);
 
-document.getElementById('generate').onclick      = generateThumbnail;
-document.getElementById('upload').onclick        = uploadToImgbb;
-document.getElementById('download').onclick      = downloadThumb;
-document.getElementById('copy-url').onclick      = copyUrl;
-document.getElementById('copy-html').onclick     = copyHtml;
+document.getElementById('generate').onclick = generateThumbnail;
+document.getElementById('upload').onclick = uploadToImgbb;
+document.getElementById('download').onclick = downloadThumb;
+document.getElementById('copy-url').onclick = copyUrl;
+document.getElementById('copy-html').onclick = copyHtml;
 document.getElementById('refresh-preview').onclick = generateThumbnail;
+document.getElementById('parse-match-btn').onclick = parseMatchString;
 
-document.getElementById('type').addEventListener('change', toggleFields);
+document.getElementById('type').addEventListener('change', () => {
+  const t = document.getElementById('type').value;
+  document.getElementById('match-fields').style.display = t === 'match' ? 'block' : 'none';
+  document.getElementById('race-fields').style.display = t === 'race' ? 'block' : 'none';
+  document.getElementById('match-logos').style.display = t === 'match' ? 'block' : 'none';
+  document.getElementById('race-logos').style.display = t === 'race' ? 'block' : 'none';
+  generateThumbnail();
+});
 document.getElementById('quality').addEventListener('change', generateThumbnail);
 document.getElementById('aspect').addEventListener('change', generateThumbnail);
 document.getElementById('bg1').addEventListener('input', debouncedGen);
 document.getElementById('bg2').addEventListener('input', debouncedGen);
 document.getElementById('league').addEventListener('input', debouncedGen);
 document.getElementById('datetime').addEventListener('input', debouncedGen);
-
-// Team name: clear auto-badge then debounce (already clears logo above)
+document.getElementById('score').addEventListener('input', debouncedGen);
 document.getElementById('home').addEventListener('input', debouncedGen);
 document.getElementById('away').addEventListener('input', debouncedGen);
-
-// Logo fields: if user types manually, drop the auto-badge
 document.getElementById('home-logo').addEventListener('input', () => {
-  autoFetched.home = false;
-  const badge = document.getElementById('home-auto-badge');
-  if (badge) badge.style.display = 'none';
-  debouncedGen();
+  autoFetched.home = false; document.getElementById('home-auto-badge').style.display = 'none'; debouncedGen();
 });
 document.getElementById('away-logo').addEventListener('input', () => {
-  autoFetched.away = false;
-  const badge = document.getElementById('away-auto-badge');
-  if (badge) badge.style.display = 'none';
-  debouncedGen();
+  autoFetched.away = false; document.getElementById('away-auto-badge').style.display = 'none'; debouncedGen();
 });
-
 document.getElementById('race-name').addEventListener('input', debouncedGen);
 document.getElementById('banner').addEventListener('input', debouncedGen);
 
-function toggleFields() {
-  const t = document.getElementById('type').value;
-  document.getElementById('match-fields').style.display = t === 'match' ? 'block' : 'none';
-  document.getElementById('race-fields').style.display  = t === 'race'  ? 'block' : 'none';
-  document.getElementById('match-logos').style.display  = t === 'match' ? 'block' : 'none';
-  document.getElementById('race-logos').style.display   = t === 'race'  ? 'block' : 'none';
-}
-
-// ─────────────────────────────────────────────
-// Init – single call
-// ─────────────────────────────────────────────
-toggleFields();
+// Initial state
+document.getElementById('type').dispatchEvent(new Event('change'));
+toggleMode();
 generateThumbnail();
 </script>
-
 </body>
 </html>
